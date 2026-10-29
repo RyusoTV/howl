@@ -25,7 +25,7 @@ canvas.smoke{position:absolute;inset:0;width:100%;height:100%;pointer-events:non
 #loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-items:center;text-align:center;transition:opacity .8s var(--ease),transform .8s var(--ease)}
 #loader.out{opacity:0;transform:scale(1.06);pointer-events:none}
 .ldwrap{position:relative;width:min(300px,70vw);aspect-ratio:1}
-.ldwrap img{position:absolute;inset:0;opacity:.16}
+.ldwrap img{position:absolute;inset:0;opacity:.16;object-fit:contain;width:100%;height:100%}
 .ldwrap img.fill{opacity:1;clip-path:inset(100% 0 0 0)}
 .ldwrap svg{position:absolute;inset:-14px;width:calc(100% + 28px);height:calc(100% + 28px);transform:rotate(-90deg)}
 .ldwrap circle{fill:none;stroke:var(--sky);stroke-width:1.5;stroke-linecap:round}
@@ -65,7 +65,7 @@ input:focus{outline:0;border-color:var(--sky);box-shadow:0 0 0 4px rgba(140,203,
 .burger.open i:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .burger.open i:nth-child(2){opacity:0}
 .burger.open i:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-#drawer{position:fixed;inset:0 0 0 auto;width:min(380px,86vw);z-index:60;background:linear-gradient(160deg,var(--navy) 0,#060d24 100%);border-left:1px solid var(--line);padding:110px 34px 40px;transform:translateX(105%);transition:transform .6s var(--ease)}
+#drawer{position:fixed;inset:0 0 0 auto;width:min(380px,86vw);z-index:60;background:linear-gradient(160deg,var(--navy) 0,#060d24 100%);border-left:1px solid var(--line);padding:110px 34px 40px;transform:translateX(105%);transition:transform .6s var(--ease);overflow:auto}
 #drawer.open{transform:none}
 #veil{position:fixed;inset:0;z-index:55;background:rgba(5,7,13,.6);opacity:0;pointer-events:none;transition:opacity .5s}
 #veil.open{opacity:1;pointer-events:auto}
@@ -112,28 +112,53 @@ h2.t{font-size:clamp(34px,5vw,56px);margin-bottom:10px}
 .chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
 .chip{background:var(--navy);color:#fff;border-radius:99px;padding:10px 20px;font:400 16px Kanit;position:relative;overflow:hidden}
 .chip small{color:var(--sky);margin-left:8px;font:300 14px Sarabun}
+a.chip{text-decoration:none}
 
-.tabs2{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 30px}
-.tabs2 button{background:none;border:1px solid var(--line);color:#fff;border-radius:99px;padding:7px 20px;font:400 15px Kanit;cursor:pointer;transition:all .3s}
-.tabs2 button.on,.tabs2 button:hover{background:var(--sky);color:var(--ink)}
-.grid{columns:3 260px;column-gap:18px}
-.grid figure{break-inside:avoid;margin-bottom:18px;border-radius:14px;overflow:hidden;cursor:zoom-in;position:relative;border:1px solid var(--line)}
-.grid img{width:100%;transition:transform .8s var(--ease),filter .5s;filter:saturate(.9)}
-.grid figure:hover img{transform:scale(1.06);filter:none}
-.grid figure.in{animation:pg .7s var(--ease) both}
 #lb{position:fixed;inset:0;z-index:90;background:rgba(5,7,13,.94);display:grid;place-items:center;padding:20px;cursor:zoom-out;animation:fade .3s}
 #lb img{max-height:92vh;border-radius:10px}
 @keyframes fade{from{opacity:0}}
 
-.hob{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px}
-.h{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy),#08122e);border:1px solid var(--line);border-radius:20px;padding:30px;min-height:230px;transition:transform .5s var(--ease)}
+/* งานอดิเรก / ผลงาน (รองรับรูปหลายรูป ลิงก์ และวิดีโอ) */
+.hob{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
+.h{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy),#08122e);border:1px solid var(--line);border-radius:20px;transition:transform .5s var(--ease)}
 .h::before{content:"";position:absolute;left:-30%;top:100%;width:160%;aspect-ratio:1;border-radius:50%;background:radial-gradient(var(--navy2),transparent 70%);transition:top .8s var(--ease)}
 .h:hover{transform:translateY(-8px)}
 .h:hover::before{top:20%}
 .h>*{position:relative}
 .h h3{font-size:26px;margin-bottom:8px;color:var(--sky)}
+.h .em{font-size:38px;line-height:1.2;margin-bottom:6px}
+.hbody{padding:22px 26px 26px}
+.hbody p{color:#d3e2f6}
+.gal{position:relative;cursor:zoom-in;overflow:hidden}
+.mbox img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .8s var(--ease),filter .5s;filter:saturate(.95)}
+.mbox:hover img{transform:scale(1.04);filter:none}
+.th{display:flex;gap:6px;padding:8px 8px 0;overflow-x:auto}
+.th img{width:64px;height:48px;aspect-ratio:auto;object-fit:cover;border-radius:8px;cursor:zoom-in;flex:none}
+.vids{display:grid;gap:12px;padding:12px 12px 0}
+.vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}
+.vid iframe,.vid video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.empty{color:#b9cdea;padding:30px 0}
 
-.acct{max-width:520px}
+.wkg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:34px}
+.wk{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,var(--navy),#08122e);transition:transform .5s var(--ease)}
+.wbody{padding:20px 22px 24px}
+.wk h3{color:var(--sky);font-size:24px}
+.wk p{color:#b9cdea;margin:8px 0 14px}
+.wk>*{position:relative}
+
+/* ช่องทางติดต่อ */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:40px}
+.cc{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-decoration:none;overflow:hidden;background:linear-gradient(160deg,var(--navy),#08122e);border:1px solid var(--line);border-radius:20px;padding:26px 24px;transition:transform .5s var(--ease),box-shadow .4s}
+a.cc:hover{transform:translateY(-6px);box-shadow:0 20px 40px -20px var(--sky)}
+.cc>*{position:relative}
+.cico{width:56px;height:56px;border-radius:14px;object-fit:cover;margin-bottom:8px}
+.cemo{font-size:36px;line-height:1.2;margin-bottom:8px}
+.cc h3{color:var(--sky);font-size:22px}
+.cc p{color:#b9cdea;word-break:break-all;font-size:15px}
+.cgo{color:var(--sky);font:500 15px Kanit;margin-top:auto;padding-top:12px}
+.flist p{color:#b9cdea;font-size:15px;margin-bottom:6px}
+
+.acct{max-width:600px}
 .row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
 .row span{color:#b9cdea}
 .badge{background:var(--sky);color:var(--ink);border-radius:99px;padding:2px 14px;font:600 14px Kanit}
@@ -174,14 +199,8 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:18px;text-align:center}
 .stat b{display:block;font:600 clamp(40px,6vw,64px) Kanit;color:var(--navy);line-height:1.1}
 .stat span{color:#3a4f7a;font-size:15px}
-.wkg{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:34px}
-.wk{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:linear-gradient(160deg,var(--navy),#08122e)}
-.wk img{width:100%;aspect-ratio:16/10;object-fit:cover}.wk>div{padding:20px 22px 24px}
-.wk h3{color:var(--sky);font-size:24px}.wk p{color:#b9cdea;margin:8px 0 14px}
-.h .em{font-size:38px;line-height:1.2;margin-bottom:6px}
-.empty{color:#b9cdea;padding:30px 0}
 .pbody p{margin:0 0 1em;max-width:70ch;color:#3a4f7a}.pbody .frame{max-width:560px;margin-bottom:26px}
-.acct{max-width:600px}
+.pbody .vids{padding:0;max-width:820px;margin-bottom:26px}
 .accHead{display:flex;align-items:center;gap:20px;margin-bottom:14px}
 .av{width:96px;height:96px;border-radius:50%;border:2px solid var(--sky);background:var(--navy);color:var(--sky);font:600 40px Kanit;cursor:pointer;overflow:hidden;padding:0;transition:transform .4s var(--ease),box-shadow .4s}
 .av:hover{transform:scale(1.06) rotate(-4deg);box-shadow:0 0 30px -4px var(--sky)}.av img{width:100%;height:100%;object-fit:cover}
@@ -190,6 +209,7 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
 #bo{position:fixed;inset:0;z-index:110;background:rgba(5,7,13,.85);backdrop-filter:blur(6px);display:grid;place-items:center;padding:14px}
 .bopanel{width:min(780px,100%);max-height:92vh;display:flex;flex-direction:column;background:linear-gradient(160deg,var(--navy),#060d24);border:1px solid var(--line);border-radius:20px;animation:rise .5s var(--ease) both}
 .bopanel header,.bopanel footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 22px}
+.bopanel footer{background:none;border:0;padding:12px 22px}
 .bopanel footer small{color:#b9cdea;font-size:13px}
 .botabs{display:flex;gap:8px;flex-wrap:wrap;padding:0 22px 12px}
 .botabs button{background:none;border:1px solid var(--line);color:#fff;border-radius:99px;padding:6px 16px;font:400 15px Kanit;cursor:pointer}
@@ -198,35 +218,19 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
 .bocard{border:1px solid var(--line);border-radius:14px;padding:6px 16px 14px;margin-bottom:14px;background:rgba(5,7,13,.35)}
 .bobtns{display:flex;gap:8px;margin-top:12px}
 .bobtns button{background:none;border:1px solid var(--line);color:#fff;border-radius:9px;padding:4px 14px;cursor:pointer;font:400 14px Kanit}
-.imgf{display:flex;align-items:center;gap:12px}.imgf img{width:64px;height:64px;object-fit:cover;border-radius:10px}
+.imgf{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.imgf img{width:64px;height:64px;object-fit:cover;border-radius:10px}
 .imgf .btn{padding:7px 16px;font-size:14px}
 .chk{display:flex!important;gap:10px;align-items:center}.chk input{width:auto}
 #boBody input[type=color]{height:44px;padding:3px}
 @media(pointer:coarse){#cur{display:none}}
-.gal{position:relative;cursor:zoom-in}.wk .th{display:flex;gap:6px;padding:8px 8px 0;overflow-x:auto}.wk .th img{width:64px;height:48px;aspect-ratio:auto;object-fit:cover;border-radius:8px;cursor:zoom-in;flex:none}
-.pbody .frame img{cursor:zoom-in}a.chip{text-decoration:none}
-.lbn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(11,31,75,.7);color:#fff;border:1px solid var(--line);border-radius:50%;width:48px;height:48px;font-size:28px;cursor:pointer}.lbn.p{left:16px}.lbn.n{right:16px}.lbc{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#b9cdea}
 .mg{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}.mt{position:relative}.mt img{width:72px;height:72px;object-fit:cover;border-radius:10px}.mt button{position:absolute;top:2px;background:rgba(5,7,13,.85);color:#fff;border:0;border-radius:6px;cursor:pointer;font-size:12px;padding:1px 6px}.mt button[data-rm]{right:2px}.mt button[data-cv]{left:2px}
+.lbn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(11,31,75,.7);color:#fff;border:1px solid var(--line);border-radius:50%;width:48px;height:48px;font-size:28px;cursor:pointer}.lbn.p{left:16px}.lbn.n{right:16px}.lbc{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#b9cdea}
 </style>
 </head>
 <body>
 <div id="glow"></div>
 <div id="toast" role="status"></div>
 <div id="prog"></div><div id="cur"></div><canvas id="fx"></canvas>
-
-<div id="loader">
-  <div>
-    <div class="ldwrap">
-      <svg viewBox="0 0 100 100"><circle id="ring" cx="50" cy="50" r="49" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg>
-      <img src="assets/logo-dark.png" alt="">
-      <img class="fill" id="ldfill" src="assets/logo-dark.png" alt="">
-    </div>
-    <div id="pct">0%</div>
-    <div class="ldbar"><i id="ldbar"></i></div>
-    <div id="ldname" class="latin sname">Howl K. Ren</div>
-    <div id="ldmsg">กำลังเตรียมพื้นที่…</div>
-  </div>
-</div>
 
 <section id="auth" class="hidden">
   <canvas class="smoke" id="authSmoke"></canvas>
@@ -265,7 +269,7 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
           <h1 id="heroTh" data-k="hero_th"></h1>
           <p class="en" data-k="hero_en"></p>
           <p class="sig sname">Howl K. Ren</p>
-          <div class="btns"><a class="btn" href="#info" data-go="info" data-t="btn_info"></a><a class="btn ghost" href="#media" data-go="media" data-t="btn_media"></a></div>
+          <div class="btns"><a class="btn" href="#info" data-go="info" data-t="btn_info"></a><a class="btn ghost" href="#contact" data-go="contact" data-t="btn_contact"></a></div>
         </div>
         <div class="frame tilt"><img id="heroImg" src="assets/poster-truth.png" alt="โปสเตอร์ ความจริงคืออะไร"></div>
       </div>
@@ -288,11 +292,7 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
         <div>
           <h2 class="t" data-k="info_t"></h2>
           <p class="lead" data-k="bio"></p>
-          <div class="chips" id="links" style="margin:26px 0 0"></div><div class="chips" id="chips">
-            
-            
-            
-          </div>
+          <div class="chips" id="links" style="margin:26px 0 0"></div><div class="chips" id="chips"></div>
         </div>
       </div>
       <div class="wrap facts">
@@ -304,29 +304,12 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
     </section>
   </div>
 
-  <!-- MEDIA -->
-  <div class="page" id="p-media">
-    <section class="sec" style="position:relative">
-      <div class="wrap">
-        <h2 class="t" data-k="media_t"></h2>
-        <p class="lead" data-k="media_d"></p>
-        <div class="tabs2" id="mtabs"><button class="on" data-f="all">ทั้งหมด</button><button data-f="photo">ภาพถ่าย</button><button data-f="poster">โปสเตอร์</button><button data-f="logo">โลโก้</button></div>
-        <div class="grid" id="grid"></div>
-      </div>
-    </section>
-  </div>
-
   <!-- HOBBY -->
   <div class="page" id="p-hobby">
     <section class="sec" style="position:relative">
       <div class="wrap">
         <h2 class="t" data-k="hobby_t"></h2>
-        <div class="hob" id="hobGrid">
-          
-          
-          
-          
-        </div>
+        <div class="hob" id="hobGrid"></div>
       </div>
     </section>
   </div>
@@ -338,7 +321,20 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
       <div class="wkg" id="workGrid"></div>
     </div></section>
   </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="p-contact">
+    <section class="sec">
+      <div class="wrap">
+        <h2 class="t" data-k="contact_t"></h2>
+        <p class="lead" data-k="contact_d"></p>
+        <div class="cgrid" id="contactGrid"></div>
+      </div>
+    </section>
+  </div>
+
   <div id="dyn"></div>
+
   <!-- ACCOUNT -->
   <div class="page" id="p-account">
     <section class="sec">
@@ -373,7 +369,7 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
 <footer id="foot" class="hidden">
   <div class="wrap">
     <div><h3 class="latin sname" style="font-size:30px">Howl K. Ren</h3><p data-k="c_note"></p></div>
-    <div><h3 data-k="ft_contact"></h3><p>อีเมล: <span data-k="c_email"></span></p><p>Discord: <span data-k="c_discord"></span></p><p>Facebook: <span data-k="c_fb"></span></p></div>
+    <div><h3 data-k="ft_contact"></h3><div class="flist" id="footList"></div></div>
     <div class="copy" data-k="copy"></div>
   </div>
 </footer>
@@ -385,26 +381,30 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 const CFG=window.CFG||{},REMOTE=!!(CFG.SUPABASE_URL&&CFG.SUPABASE_ANON_KEY&&window.supabase);
 const sb=REMOTE?supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY):null;
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const parseJ=(v,d)=>{if(v&&typeof v==="object")return v;try{return JSON.parse(v)??d}catch{return d}};
 const DEF={
 hero_th:"การเดินทางไม่มีวันสิ้นสุด หากพวกคุณไม่ยอมแพ้",hero_en:"The Journey Never Ends. If You Guys Don’t Give Up",
 brand_t:"LuminaEther Official",brand_d:"โปรเจกต์ Minecraft Roleplay ที่สร้างขึ้นเพื่อให้ทุกคนได้ออกเดินทางไปด้วยกัน",
 info_t:"เกี่ยวกับฉัน",bio:"ฉันคือ Howl K. Ren ผู้ก่อตั้ง LuminaEther Official ชอบสร้างสิ่งใหม่ ทั้งแอดออน โมเดล เว็บไซต์ และระบบต่างๆ (แก้ข้อความนี้ได้ในโหมดแก้ไข)",
 f1_l:"ชื่อ",f1_v:"Howl K. Ren",f2_l:"โปรเจกต์",f2_v:"LuminaEther Official",f3_l:"สิ่งที่ทำ",f3_v:"Minecraft Roleplay",f4_l:"เครื่องมือ",f4_v:"Python, JavaScript, C/C++",
-h1_t:"สร้างแอดออน Minecraft",h1_d:"ออกแบบโมเดล สกิล และระบบเกมให้โลกของ LuminaEther มีชีวิต",
-h2_t:"เขียนโค้ด",h2_d:"ทำเว็บไซต์ บอท และเครื่องมือเล็กๆ ที่ช่วยให้งานเดินต่อได้",
-h3_t:"ถ่ายภาพ",h3_d:"เก็บแสง ดอกไม้ และช่วงเวลาเงียบๆ ระหว่างวัน",
-h4_t:"ฟังเพลง",h4_d:"หูฟังคู่ใจอยู่กับฉันทั้งตอนทำงานและตอนพัก",
-c_note:"พร้อมเดินทางต่อไปด้วยกัน หากคุณไม่ยอมแพ้",c_email:"luminaethercompany@gmail.com",c_discord:"ยังไม่ได้ระบุ",c_fb:"ยังไม่ได้ระบุ",
-btn_info:"ดูข้อมูลของฉัน",btn_media:"ดูสื่อ",media_t:"สื่อ",media_d:"ภาพถ่าย โปสเตอร์ และโลโก้ของ LuminaEther Official",hobby_t:"งานอดิเรก",works_t:"ผลงาน",works_d:"สิ่งที่สร้างและเผยแพร่แล้ว",open_btn:"เปิดดู",
-ft_contact:"ติดต่อ",copy:"© LuminaEther Official",nav_account:"บัญชี",nav_home:"Home",nav_info:"ข้อมูล",nav_works:"ผลงาน",nav_media:"สื่อ",nav_hobby:"งานอดิเรก",
-st_works:"ผลงาน",st_hob:"งานอดิเรก",st_media:"สื่อ",st_inf:"ไม่ยอมแพ้"};
-const TXL={hero_th:"หน้าแรก: หัวข้อไทย",hero_en:"หน้าแรก: หัวข้ออังกฤษ",btn_info:"หน้าแรก: ปุ่ม 1",btn_media:"หน้าแรก: ปุ่ม 2",brand_t:"แบรนด์: ชื่อ",brand_d:"แบรนด์: คำอธิบาย",info_t:"ข้อมูล: หัวข้อ",bio:"ข้อมูล: แนะนำตัว",
+c_note:"พร้อมเดินทางต่อไปด้วยกัน หากคุณไม่ยอมแพ้",
+btn_info:"ดูข้อมูลของฉัน",btn_contact:"ติดต่อฉัน",hobby_t:"งานอดิเรก",works_t:"ผลงาน",works_d:"สิ่งที่สร้างและเผยแพร่แล้ว",
+contact_t:"ติดต่อ",contact_d:"ช่องทางติดต่อและลิงก์ต่างๆ",open_btn:"เปิดดู",
+ft_contact:"ติดต่อ",copy:"© LuminaEther Official",
+nav_account:"บัญชี",nav_home:"Home",nav_info:"ข้อมูล",nav_works:"ผลงาน",nav_hobby:"งานอดิเรก",nav_contact:"ติดต่อ",
+st_works:"ผลงาน",st_hob:"งานอดิเรก",st_contact:"ช่องทาง",st_inf:"ไม่ยอมแพ้"};
+const TXL={hero_th:"หน้าแรก: หัวข้อไทย",hero_en:"หน้าแรก: หัวข้ออังกฤษ",btn_info:"หน้าแรก: ปุ่ม 1",btn_contact:"หน้าแรก: ปุ่ม 2",brand_t:"แบรนด์: ชื่อ",brand_d:"แบรนด์: คำอธิบาย",info_t:"ข้อมูล: หัวข้อ",bio:"ข้อมูล: แนะนำตัว",
 f1_l:"ข้อมูล 1 หัวข้อ",f1_v:"ข้อมูล 1 ค่า",f2_l:"ข้อมูล 2 หัวข้อ",f2_v:"ข้อมูล 2 ค่า",f3_l:"ข้อมูล 3 หัวข้อ",f3_v:"ข้อมูล 3 ค่า",f4_l:"ข้อมูล 4 หัวข้อ",f4_v:"ข้อมูล 4 ค่า",
-media_t:"สื่อ: หัวข้อ",media_d:"สื่อ: คำอธิบาย",hobby_t:"งานอดิเรก: หัวข้อ",works_t:"ผลงาน: หัวข้อ",works_d:"ผลงาน: คำอธิบาย",open_btn:"ข้อความปุ่มลิงก์",
-c_note:"ท้ายเว็บ: ข้อความ",ft_contact:"ท้ายเว็บ: หัวข้อติดต่อ",c_email:"อีเมลติดต่อ",c_discord:"Discord",c_fb:"Facebook",copy:"ลิขสิทธิ์",
-nav_account:"เมนู: บัญชี",nav_home:"เมนู: Home",nav_info:"เมนู: ข้อมูล",nav_works:"เมนู: ผลงาน",nav_media:"เมนู: สื่อ",nav_hobby:"เมนู: งานอดิเรก",st_works:"ตัวเลข: ผลงาน",st_hob:"ตัวเลข: งานอดิเรก",st_media:"ตัวเลข: สื่อ",st_inf:"ตัวเลข: ไม่ยอมแพ้"};
+hobby_t:"งานอดิเรก: หัวข้อ",works_t:"ผลงาน: หัวข้อ",works_d:"ผลงาน: คำอธิบาย",contact_t:"ติดต่อ: หัวข้อ",contact_d:"ติดต่อ: คำอธิบาย",open_btn:"ข้อความปุ่มลิงก์",
+c_note:"ท้ายเว็บ: ข้อความ",ft_contact:"ท้ายเว็บ: หัวข้อติดต่อ",copy:"ลิขสิทธิ์",
+nav_account:"เมนู: บัญชี",nav_home:"เมนู: Home",nav_info:"เมนู: ข้อมูล",nav_works:"เมนู: ผลงาน",nav_hobby:"เมนู: งานอดิเรก",nav_contact:"เมนู: ติดต่อ",st_works:"ตัวเลข: ผลงาน",st_hob:"ตัวเลข: งานอดิเรก",st_contact:"ตัวเลข: ช่องทาง",st_inf:"ตัวเลข: ไม่ยอมแพ้"};
 const T=k=>content[k]??DEF[k]??"";
 let content={...DEF},user=null,isAdmin=false,page="home";
+
+/* หน้าโหลด: ค่าตั้งต้น (แอดมินปรับได้ในแท็บ "หน้าโหลด") */
+const LDD={on:true,name:"",dur:3.6,pct:true,msgs:["กำลังเตรียมพื้นที่…","โหลดภาพและโลโก้…","ตรวจสอบระบบสมาชิก…","เกือบพร้อมแล้ว…","ยินดีต้อนรับ"],logo:"",bg:"",bgc:"#05070D"};
+const normLD=c=>{const o={...LDD,...(c||{})};o.dur=Math.min(15,Math.max(1,+o.dur||LDD.dur));if(!Array.isArray(o.msgs)||!o.msgs.length)o.msgs=LDD.msgs.slice();return o};
+let LD=normLD();
 
 /* data layer: Supabase หรือโหมดทดลองในเครื่อง */
 const norm=u=>u?{id:u.id,email:u.email,name:u.user_metadata?.name||u.name||u.email.split("@")[0]}:null;
@@ -426,6 +426,8 @@ const api={
  async pass(p){if(REMOTE){const{error}=await sb.auth.updateUser({password:p});if(error)throw error;return}
   const us=LS.get("hkr_u",{});us[user.email].pw=p;LS.set("hkr_u",us)},
  async load(){if(REMOTE){const{data}=await sb.from("site_content").select("key,value");return Object.fromEntries((data||[]).map(r=>[r.key,r.value]))}return LS.get("hkr_c",{})},
+ /* หน้าโหลดอ่านได้โดยไม่ต้องล็อกอิน (ดู policy "public read loader" ใน schema.sql) */
+ async loaderCfg(){if(REMOTE){const{data}=await sb.from("site_content").select("value").eq("key","loader").maybeSingle();return data?parseJ(data.value,null):null}return parseJ(LS.get("hkr_c",{}).loader,null)},
  async save(o){if(REMOTE){const{error}=await sb.from("site_content").upsert(Object.entries(o).map(([key,value])=>({key,value,updated_at:new Date().toISOString()})));if(error)throw error}else LS.set("hkr_c",o)}
 };
 
@@ -442,13 +444,22 @@ function smoke(c){const x=c.getContext("2d");let w,h;const B=[];
    const R=b.r*Math.max(w,h),g=x.createRadialGradient(b.x*w,b.y*h,0,b.x*w,b.y*h,R);g.addColorStop(0,`rgba(${b.c},${b.a})`);g.addColorStop(1,`rgba(${b.c},0)`);x.fillStyle=g;x.fillRect(0,0,w,h)}
   if(!still)requestAnimationFrame(f)})()}
 
-/* loading screen: ขับด้วยเวลา ไม่รอเครือข่าย จึงไม่ค้างที่ 0% */
-function runLoader(){return new Promise(done=>{
- const msgs=["กำลังเตรียมพื้นที่…","โหลดภาพและโลโก้…","ตรวจสอบระบบสมาชิก…","เกือบพร้อมแล้ว…","ยินดีต้อนรับ"],T=3600,t0=Date.now();
- const id=setInterval(()=>{const k=Math.min(1,(Date.now()-t0)/T),e=1-Math.pow(1-k,2.2),p=Math.round(e*100);
+/* หน้าโหลด: สร้างใหม่ทุกครั้ง อ่านค่าจาก LD แบบสด (ค่าที่มาช้าจากเซิร์ฟเวอร์ยังมีผล) */
+function applyLoader(){const el=$("#loader");if(!el)return;const lg=safeUrl(LD.logo)||DD.logoDark;
+ $("#ldlogo").src=lg;$("#ldfill").src=lg;$("#ldname").textContent=LD.name||D.title;$("#pct").classList.toggle("hidden",!LD.pct);
+ el.style.background=LD.bgc||LDD.bgc;const bg=safeUrl(LD.bg);if(bg){el.style.backgroundImage=`url("${bg.replace(/"/g,"%22")}")`;el.style.backgroundSize="cover";el.style.backgroundPosition="center"}}
+function showLoader(preview){return new Promise(done=>{
+ const el=document.createElement("div");el.id="loader";
+ el.innerHTML='<div><div class="ldwrap"><svg viewBox="0 0 100 100"><circle id="ring" cx="50" cy="50" r="49" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><img id="ldlogo" alt=""><img class="fill" id="ldfill" alt=""></div><div id="pct">0%</div><div class="ldbar"><i id="ldbar"></i></div><div id="ldname" class="latin"></div><div id="ldmsg"></div></div>';
+ document.body.prepend(el);applyLoader();
+ const t0=performance.now();
+ const id=setInterval(()=>{
+  let k=Math.min(1,(performance.now()-t0)/(Math.max(1,+LD.dur||LDD.dur)*1000));
+  if(!preview&&!LD.on)k=1;
+  const p=Math.round((1-Math.pow(1-k,2.2))*100),M=LD.msgs?.length?LD.msgs:LDD.msgs;
   $("#pct").textContent=p+"%";$("#ring").style.strokeDashoffset=100-p;$("#ldbar").style.width=p+"%";$("#ldfill").style.clipPath=`inset(${100-p}% 0 0 0)`;
-  $("#ldmsg").textContent=msgs[Math.min(msgs.length-1,Math.floor(k*msgs.length))];
-  if(k>=1){clearInterval(id);setTimeout(()=>{$("#loader").classList.add("out");setTimeout(()=>{$("#loader").remove();done()},800)},350)}},40)})}
+  $("#ldmsg").textContent=M[Math.min(M.length-1,Math.floor(k*M.length))];
+  if(k>=1){clearInterval(id);setTimeout(()=>{el.classList.add("out");setTimeout(()=>{el.remove();done()},800)},350)}},40)})}
 
 /* auth UI */
 let mode="in";
@@ -473,7 +484,7 @@ async function enter(u){try{Object.assign(u,await api.prof(u))}catch{}user=u;isA
  const h=location.hash.slice(1);go($("#p-"+h)?h:"home");typeHero()}
 function go(p){page=p;$$(".page").forEach(e=>e.classList.toggle("show",e.id==="p-"+p));
  $("#foot").classList.toggle("hidden",p==="account");$$("#drawer a").forEach(a=>a.classList.toggle("on",a.dataset.go===p));
- closeMenu();scrollTo(0,0);setTimeout(reveal,60);if(p==="media")buildGrid(curFilter)}
+ closeMenu();scrollTo(0,0);setTimeout(reveal,60)}
 document.addEventListener("click",e=>{const a=e.target.closest("[data-go]");if(a){e.preventDefault();history.replaceState(null,"","#"+a.dataset.go);go(a.dataset.go)}});
 function closeMenu(){["#drawer","#veil","#burger"].forEach(s=>$(s).classList.remove("open"));$("#burger").setAttribute("aria-expanded","false")}
 $("#burger").onclick=()=>{const o=!$("#drawer").classList.contains("open");["#drawer","#veil","#burger"].forEach(s=>$(s).classList.toggle("open",o));$("#burger").setAttribute("aria-expanded",o);
@@ -485,40 +496,42 @@ $("#logout").onclick=async()=>{await api.signOut();location.hash="";location.rel
 function typeHero(){const el=$("#heroTh"),s=el.textContent;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
  el.textContent="";el.classList.add("typing");let i=0;const id=setInterval(()=>{el.textContent=s.slice(0,++i);if(i>=s.length){clearInterval(id);el.classList.remove("typing")}},55)}
 
-/* media */
-let curFilter="all",MAN=null;
+/* lightbox (ดูรูปแบบเลื่อนซ้าย/ขวา) */
 function openLB(L,j=0){$("#lb")?.remove();const l=document.createElement("div");l.id="lb";const d=()=>l.innerHTML=`<img src="${esc(L[j])}" alt="">${L.length>1?`<button class="lbn p" data-d="-1" aria-label="ก่อนหน้า">‹</button><button class="lbn n" data-d="1" aria-label="ถัดไป">›</button><span class="lbc">${j+1} / ${L.length}</span>`:""}`;d();
  l.onclick=e=>{const k=e.target.dataset.d;if(k){e.stopPropagation();j=(j+ +k+L.length)%L.length;d()}else l.remove()};document.body.append(l)}
-document.addEventListener("click",e=>{const g=e.target.closest("[data-lb]");if(!g)return;const[k,i,j]=g.dataset.lb.split(":"),o=(k==="w"?D.works:D.pages)[+i];if(o)openLB((o.imgs||[]).map(safeUrl).filter(Boolean),+j)});
-const FALL=["bg-smoke.png:poster","logo-dark.png:logo","logo-light.png:logo","photo-1.jpg:photo","photo-2.jpg:photo","photo-3.jpg:photo","photo-4.jpg:photo","photo-5.jpg:photo","photo-6.jpg:photo","photo-7.jpg:photo","photo-8.jpg:photo","poster-journey.png:poster","poster-truth.png:poster"].map(s=>{const[f,t]=s.split(":");return{file:"assets/"+f,type:t}});
-async function buildGrid(f){curFilter=f;if(!MAN){try{MAN=await (await fetch("assets/manifest.json")).json()}catch{MAN=FALL}}
- const g=$("#grid");g.innerHTML="";const LL=MAN.concat(D.media||[]).filter(m=>f==="all"||m.type===f);LL.forEach((m,i)=>{const fig=document.createElement("figure");fig.className="in";fig.style.animationDelay=i*60+"ms";
-  fig.innerHTML=`<img decoding="async" src="${m.file}" alt="สื่อ LuminaEther ชิ้นที่ ${i+1}">`;fig.onclick=()=>openLB(LL.map(x=>x.file),i);g.append(fig)})}
-$$("#mtabs button").forEach(b=>b.onclick=()=>{$$("#mtabs button").forEach(x=>x.classList.toggle("on",x===b));buildGrid(b.dataset.f)});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-lb]");if(!g)return;const[k,i,j]=g.dataset.lb.split(":");const o=({w:D.works,h:D.hobbies,p:D.pages}[k]||[])[+i];if(o)openLB((o.imgs||[]).map(safeUrl).filter(Boolean),+j)});
 
 /* gimmicks: แสงตามเมาส์ + เอียงการ์ด */
 addEventListener("pointermove",e=>{const g=$("#glow");g.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
  $$(".tilt").forEach(t=>{const r=t.getBoundingClientRect();if(e.clientY<r.top-200||e.clientY>r.bottom+200)return;const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;t.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`})});
 
-/* admin edit */
+/* admin edit (ข้อความในหน้า) */
 const setEdit=on=>{document.body.classList.toggle("editing",on);$$("[data-k]").forEach(e=>e.contentEditable=on?"plaintext-only":"false");
  $("#editBtn").classList.toggle("hidden",on);$("#saveBtn").classList.toggle("hidden",!on);$("#cancelBtn").classList.toggle("hidden",!on);paint()};
 $("#editBtn").onclick=()=>setEdit(true);
 $("#cancelBtn").onclick=()=>{paint();setEdit(false)};
-$("#saveBtn").onclick=async()=>{const o={...content,data:JSON.stringify(D)};$$("[data-k]").forEach(e=>o[e.dataset.k]=e.textContent.trim());
+$("#saveBtn").onclick=async()=>{const o={...content,data:JSON.stringify(D),loader:JSON.stringify(LD)};$$("[data-k]").forEach(e=>o[e.dataset.k]=e.textContent.trim());
  try{await api.save(o);content={...DEF,...o};setEdit(false);toast("บันทึกแล้ว")}catch(err){toast("บันทึกไม่สำเร็จ: "+err.message)}};
 
-
-/* ===== v2: ข้อมูลแบบไดนามิก / หลังบ้าน / บัญชี / เอฟเฟกต์ ===== */
+/* ===== v2/v4: ข้อมูลแบบไดนามิก / หลังบ้าน / บัญชี / เอฟเฟกต์ ===== */
 function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 function fmt(s){return esc(s).replace(/\[([^\]]+)\]\(((?:https?:\/\/|mailto:)[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">$1</a>').replace(/(^|\s)(https?:\/\/[^\s<]+)/g,'$1<a href="$2" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">$2</a>')}
 const safeLink=u=>{u=String(u||"").trim();if(/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(u))u="https://"+u;return /^(https?:\/\/|mailto:|tel:)/.test(u)?u:""};
 const emsg=m=>/Invalid login/.test(m)?"อีเมลหรือรหัสผ่านไม่ถูกต้อง":/Database error/.test(m)?"ฐานข้อมูลปฏิเสธการสมัคร: ให้แอดมินรัน supabase/schema.sql ใหม่ใน Supabase SQL Editor":/already registered/i.test(m)?"อีเมลนี้สมัครไว้แล้ว":/rate limit/i.test(m)?"ส่งอีเมลบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่":m;
 const safeUrl=u=>/^(https?:\/\/|assets\/|data:image\/)/.test(u||"")?u:"";
 const DD={title:"Howl K. Ren",accent:"#8CCBFF",fx:true,heroImg:"assets/poster-truth.png",aboutImg:"assets/photo-7.jpg",
- hobbies:[{e:"🧩",t:DEF.h1_t,d:DEF.h1_d},{e:"💻",t:DEF.h2_t,d:DEF.h2_d},{e:"📷",t:DEF.h3_t,d:DEF.h3_d},{e:"🎧",t:DEF.h4_t,d:DEF.h4_d}],
- works:[{t:"โปสเตอร์: ความจริงคืออะไร",d:"งานโปสเตอร์ของ LuminaEther Official",img:"assets/poster-truth.png",link:""},{t:"โปสเตอร์: The Journey",d:"การเดินทางไม่มีวันสิ้นสุด",img:"assets/poster-journey.png",link:""}],
- chips:[{t:"Python",s:"สคริปต์และเครื่องมือ"},{t:"JavaScript",s:"หน้าเว็บและระบบสมาชิก"},{t:"C / C++",s:"ตัวสร้างรายการสื่อ"}],pages:[],media:[],links:[],logoDark:"assets/logo-dark.png",logoLight:"assets/logo-light.png"};
+ hobbies:[
+  {e:"🧩",t:"สร้างแอดออน Minecraft",d:"ออกแบบโมเดล สกิล และระบบเกมให้โลกของ LuminaEther มีชีวิต",imgs:[],vids:[],link:""},
+  {e:"💻",t:"เขียนโค้ด",d:"ทำเว็บไซต์ บอท และเครื่องมือเล็กๆ ที่ช่วยให้งานเดินต่อได้",imgs:[],vids:[],link:""},
+  {e:"📷",t:"ถ่ายภาพ",d:"เก็บแสง ดอกไม้ และช่วงเวลาเงียบๆ ระหว่างวัน",imgs:[],vids:[],link:""},
+  {e:"🎧",t:"ฟังเพลง",d:"หูฟังคู่ใจอยู่กับฉันทั้งตอนทำงานและตอนพัก",imgs:[],vids:[],link:""}],
+ works:[{t:"โปสเตอร์: ความจริงคืออะไร",d:"งานโปสเตอร์ของ LuminaEther Official",imgs:["assets/poster-truth.png"],vids:[],link:""},{t:"โปสเตอร์: The Journey",d:"การเดินทางไม่มีวันสิ้นสุด",imgs:["assets/poster-journey.png"],vids:[],link:""}],
+ chips:[{t:"Python",s:"สคริปต์และเครื่องมือ"},{t:"JavaScript",s:"หน้าเว็บและระบบสมาชิก"},{t:"C / C++",s:"ตัวสร้างรายการสื่อ"}],
+ contacts:[
+  {e:"📧",n:"อีเมล",v:"luminaethercompany@gmail.com",link:"mailto:luminaethercompany@gmail.com",img:""},
+  {e:"🎮",n:"Discord",v:"ยังไม่ได้ระบุ",link:"",img:""},
+  {e:"👥",n:"Facebook",v:"ยังไม่ได้ระบุ",link:"",img:""}],
+ pages:[],links:[],logoDark:"assets/logo-dark.png",logoLight:"assets/logo-light.png"};
 let D=JSON.parse(JSON.stringify(DD));
 
 /* ภาพ: ลองใหม่ 1 ครั้ง แล้วแสดงกรอบแทน (ไม่ให้เว็บว่างเปล่า) */
@@ -526,22 +539,41 @@ addEventListener("error",e=>{const t=e.target;if(!t||t.tagName!=="IMG"||t.datase
  if(s&&!s.startsWith("data:")){t.addEventListener("error",()=>{t.removeAttribute("src");t.classList.add("broken")},{once:true});t.src=s+(s.includes("?")?"&":"?")+"r="+Date.now()}else t.classList.add("broken")},true);
 const warm=()=>Promise.race([Promise.allSettled(["logo-dark.png","logo-light.png","poster-truth.png","photo-7.jpg"].map(f=>new Promise(r=>{const i=new Image();i.onload=i.onerror=r;i.src="assets/"+f}))),new Promise(r=>setTimeout(r,6000))]);
 
-function render(){try{D={...DD,...JSON.parse(content.data||"{}")}}catch{D=JSON.parse(JSON.stringify(DD))}[...D.works,...D.pages].forEach(x=>{if(!x.imgs)x.imgs=x.img?[x.img]:[];delete x.img});applyD()}
+/* วิดีโอ: YouTube / Vimeo / ไฟล์ .mp4 .webm .ogg (ลิงก์อื่นจะไม่แสดง) */
+function vembed(u){u=String(u||"").trim();let m;
+ if(m=u.match(/^https?:\/\/(?:www\.|m\.)?(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{6,})/))return `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${m[1]}" title="วิดีโอ" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
+ if(m=u.match(/^https?:\/\/(?:www\.|player\.)?vimeo\.com\/(?:video\/)?(\d+)/))return `<div class="vid"><iframe src="https://player.vimeo.com/video/${m[1]}" title="วิดีโอ" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
+ if(/^https:\/\/[^\s"'<>]+\.(mp4|webm|ogg)(\?[^\s"'<>]*)?$/i.test(u))return `<div class="vid"><video controls preload="metadata" playsinline src="${esc(u)}"></video></div>`;
+ return "";}
+/* บล็อกสื่อของงานอดิเรก/ผลงาน: รูปปก + รูปย่อ + วิดีโอ */
+function mediaHTML(it,k,i){const g=(it.imgs||[]).map(safeUrl).filter(Boolean),v=(it.vids||[]).map(vembed).join("");
+ return (g.length?`<figure class="gal mbox"><img src="${esc(g[0])}" alt="${esc(it.t)}" data-lb="${k}:${i}:0"></figure>`:"")
+  +(g.length>1?`<nav class="th">${g.map((u,j)=>`<img src="${esc(u)}" alt="" data-lb="${k}:${i}:${j}">`).join("")}</nav>`:"")
+  +(v?`<div class="vids">${v}</div>`:"")}
+const lnk=u=>safeLink(u)?`<a class="btn ghost" href="${esc(safeLink(u))}" target="_blank" rel="noopener">${esc(T("open_btn"))}</a>`:"";
+
+function render(){try{D={...DD,...parseJ(content.data,{})}}catch{D=JSON.parse(JSON.stringify(DD))}
+ [...D.works,...D.pages,...D.hobbies].forEach(x=>{if(!x.imgs)x.imgs=x.img?[x.img]:[];delete x.img;if(!x.vids)x.vids=[]});applyD()}
 function applyD(){
  document.documentElement.style.setProperty("--sky",D.accent);document.title=D.title;$$(".sname").forEach(e=>e.textContent=D.title);
  $("#heroImg").src=safeUrl(D.heroImg)||DD.heroImg;$("#aboutImg").src=safeUrl(D.aboutImg)||DD.aboutImg;
- const L=o=>(o.imgs||[]).map(safeUrl).filter(Boolean);
- $("#hobGrid").innerHTML=D.hobbies.map(h=>`<div class="h tilt3 rv"><div class="em">${esc(h.e)}</div><h3>${esc(h.t)}</h3><p>${fmt(h.d)}</p>${safeLink(h.link)?`<a class="btn ghost" href="${esc(safeLink(h.link))}" target="_blank" rel="noopener">${esc(T("open_btn"))}</a>`:""}</div>`).join("")||'<p class="empty">ยังไม่มีงานอดิเรก</p>';
- $("#workGrid").innerHTML=D.works.map((w,i)=>{const g=L(w);return `<article class="wk tilt3 rv">${g.length?`<figure class="gal"><img src="${esc(g[0])}" alt="${esc(w.t)}" data-lb="w:${i}:0"></figure>`:""}${g.length>1?`<nav class="th">${g.map((u,j)=>`<img src="${esc(u)}" alt="" data-lb="w:${i}:${j}">`).join("")}</nav>`:""}<div><h3>${esc(w.t)}</h3><p>${fmt(w.d)}</p>${safeLink(w.link)?`<a class="btn ghost" href="${esc(safeLink(w.link))}" target="_blank" rel="noopener">${esc(T("open_btn"))}</a>`:""}</div></article>`}).join("")||'<p class="empty">ยังไม่มีผลงาน</p>';
+ $("#hobGrid").innerHTML=D.hobbies.map((h,i)=>`<article class="h tilt3 rv">${mediaHTML(h,"h",i)}<div class="hbody"><div class="em">${esc(h.e)}</div><h3>${esc(h.t)}</h3><p>${fmt(h.d)}</p>${lnk(h.link)}</div></article>`).join("")||'<p class="empty">ยังไม่มีงานอดิเรก</p>';
+ $("#workGrid").innerHTML=D.works.map((w,i)=>`<article class="wk tilt3 rv">${mediaHTML(w,"w",i)}<div class="wbody"><h3>${esc(w.t)}</h3><p>${fmt(w.d)}</p>${lnk(w.link)}</div></article>`).join("")||'<p class="empty">ยังไม่มีผลงาน</p>';
  $("#chips").innerHTML=D.chips.map(c=>{const u=safeLink(c.link),t=`${esc(c.t)}<small>${esc(c.s)}</small>`;return u?`<a class="chip rv" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:`<span class="chip rv">${t}</span>`}).join("");
  $("#links").innerHTML=(D.links||[]).map(l=>safeLink(l.u)?`<a class="btn ghost rv" href="${esc(safeLink(l.u))}" target="_blank" rel="noopener">${esc(l.t)}</a>`:"").join("");
  $$(".lgD").forEach(i=>i.src=safeUrl(D.logoDark)||DD.logoDark);$$(".lgL").forEach(i=>i.src=safeUrl(D.logoLight)||DD.logoLight);$("#fav").href=safeUrl(D.logoDark)||DD.logoDark;
- $("#dyn").innerHTML=D.pages.map((p,i)=>`<div class="page" id="p-c_${esc(p.id)}"><section class="sec paper"><div class="wrap pbody"><h2 class="t">${esc(p.t)}</h2>${L(p).map((u,j)=>`<div class="frame"><img src="${esc(u)}" alt="${esc(p.t)}" data-lb="p:${i}:${j}"></div>`).join("")}${String(p.body||"").split(/\n+/).filter(Boolean).map(l=>`<p>${fmt(l)}</p>`).join("")}</div></section></div>`).join("");
+ /* ช่องทางติดต่อ: หน้า "ติดต่อ" และรายการท้ายเว็บ */
+ $("#contactGrid").innerHTML=D.contacts.map(c=>{const u=safeLink(c.link),ico=safeUrl(c.img)?`<img class="cico" src="${esc(safeUrl(c.img))}" alt="">`:`<div class="cemo">${esc(c.e||"📨")}</div>`,inner=`${ico}<h3>${esc(c.n)}</h3><p>${esc(c.v)}</p>${u?'<span class="cgo">เปิดลิงก์ →</span>':""}`;
+  return u?`<a class="cc tilt3 rv" href="${esc(u)}" target="_blank" rel="noopener">${inner}</a>`:`<div class="cc rv">${inner}</div>`}).join("")||'<p class="empty">ยังไม่มีช่องทางติดต่อ</p>';
+ $("#footList").innerHTML=D.contacts.map(c=>{const u=safeLink(c.link);return `<p>${esc(c.n)}: ${u?`<a href="${esc(u)}" target="_blank" rel="noopener" style="color:var(--sky)">${esc(c.v)}</a>`:esc(c.v)}</p>`}).join("");
+ /* หน้าใหม่ที่เพิ่มเอง */
+ $("#dyn").innerHTML=D.pages.map((p,i)=>{const im=(p.imgs||[]).map(safeUrl).filter(Boolean),v=(p.vids||[]).map(vembed).join("");
+  return `<div class="page" id="p-c_${esc(p.id)}"><section class="sec paper"><div class="wrap pbody"><h2 class="t">${esc(p.t)}</h2>${im.map((u,j)=>`<div class="frame"><img src="${esc(u)}" alt="${esc(p.t)}" data-lb="p:${i}:${j}"></div>`).join("")}${v?`<div class="vids">${v}</div>`:""}${String(p.body||"").split(/\n+/).filter(Boolean).map(l=>`<p>${fmt(l)}</p>`).join("")}</div></section></div>`}).join("");
  $("#p-"+page)?.classList.add("show");
- const nav=[["account",T("nav_account"),"ACCOUNT"],["home",T("nav_home"),"HOME"],["info",T("nav_info"),"ABOUT"],["works",T("nav_works"),"WORKS"],["media",T("nav_media"),"MEDIA"],["hobby",T("nav_hobby"),"HOBBIES"],...D.pages.map(p=>["c_"+p.id,p.t,"MORE"])];
+ const nav=[["account",T("nav_account"),"ACCOUNT"],["home",T("nav_home"),"HOME"],["info",T("nav_info"),"ABOUT"],["works",T("nav_works"),"WORKS"],["hobby",T("nav_hobby"),"HOBBIES"],["contact",T("nav_contact"),"CONTACT"],...D.pages.map(p=>["c_"+p.id,p.t,"MORE"])];
  $("#drawer").innerHTML=nav.map(([g,t,s])=>`<a href="#${esc(g)}" data-go="${esc(g)}" class="${g===page?"on":""}">${esc(t)} <small>${s}</small></a>`).join("");
  const words=[...D.chips.map(c=>c.t),"LuminaEther Official","Minecraft Roleplay","Never Give Up"],sp=words.map(w=>`<span>${esc(w)} ✦</span>`).join("");$("#mq").innerHTML=sp+sp;
- $("#stats").innerHTML=[[D.works.length,T("st_works")],[D.hobbies.length,T("st_hob")],[FALL.length+D.media.length,T("st_media")],["∞",T("st_inf")]].map(([n,l])=>`<div class="stat rv"><b ${typeof n==="number"?`data-n="${n}"`:""}>${typeof n==="number"?0:n}</b><span>${l}</span></div>`).join("");
+ $("#stats").innerHTML=[[D.works.length,T("st_works")],[D.hobbies.length,T("st_hob")],[D.contacts.length,T("st_contact")],["∞",T("st_inf")]].map(([n,l])=>`<div class="stat rv"><b ${typeof n==="number"?`data-n="${n}"`:""}>${typeof n==="number"?0:n}</b><span>${esc(l)}</span></div>`).join("");
  $$(".fact,.brand,.about").forEach(e=>e.classList.add("rv"));reveal()}
 
 /* เลื่อนแล้วค่อยๆ ปรากฏ + นับเลข */
@@ -597,40 +629,75 @@ $("#savePw").onclick=async()=>{const n=$("#pw1").value;if(n.length<6)return toas
 
 /* หลังบ้านแอดมิน */
 const BO={
- hobbies:{n:"งานอดิเรก",f:[["e","อีโมจิ"],["t","ชื่อ"],["d","รายละเอียด (ใส่ลิงก์ได้: [ข้อความ](https://…))","a"],["link","ลิงก์ปุ่ม (ถ้ามี)"]],b:()=>({e:"✨",t:"งานอดิเรกใหม่",d:"",link:""})},
- works:{n:"ผลงาน",f:[["imgs","รูปภาพ (ไม่จำกัดจำนวน · รูปแรก = ภาพปก)","m"],["t","ชื่อผลงาน"],["d","รายละเอียด","a"],["link","ลิงก์ (ถ้ามี)"]],b:()=>({t:"ผลงานใหม่",d:"",imgs:[],link:""})},
- pages:{n:"หน้าใหม่",f:[["t","ชื่อหน้า (ขึ้นในเมนู)"],["imgs","รูปภาพ (ไม่จำกัดจำนวน)","m"],["body","เนื้อหา (ขึ้นบรรทัดใหม่ = ย่อหน้าใหม่)","a"]],b:()=>({id:Math.random().toString(36).slice(2,8),t:"หน้าใหม่",imgs:[],body:""})},
+ hobbies:{n:"งานอดิเรก",f:[["e","อีโมจิ (แสดงเมื่อไม่มีรูป)"],["t","ชื่อ"],["d","รายละเอียด (ใส่ลิงก์ได้: [ข้อความ](https://…))","a"],["imgs","รูปภาพ (ไม่จำกัดจำนวน · รูปแรก = ภาพปก)","m"],["vids","วิดีโอ (บรรทัดละ 1 ลิงก์: YouTube, Vimeo หรือไฟล์ .mp4)","L"],["link","ลิงก์ปุ่ม (ถ้ามี)"]],b:()=>({e:"✨",t:"งานอดิเรกใหม่",d:"",imgs:[],vids:[],link:""})},
+ works:{n:"ผลงาน",f:[["imgs","รูปภาพ (ไม่จำกัดจำนวน · รูปแรก = ภาพปก)","m"],["vids","วิดีโอ (บรรทัดละ 1 ลิงก์: YouTube, Vimeo หรือไฟล์ .mp4)","L"],["t","ชื่อผลงาน"],["d","รายละเอียด","a"],["link","ลิงก์ (ถ้ามี)"]],b:()=>({t:"ผลงานใหม่",d:"",imgs:[],vids:[],link:""})},
+ pages:{n:"หน้าใหม่",f:[["t","ชื่อหน้า (ขึ้นในเมนู)"],["imgs","รูปภาพ (ไม่จำกัดจำนวน)","m"],["vids","วิดีโอ (บรรทัดละ 1 ลิงก์)","L"],["body","เนื้อหา (ขึ้นบรรทัดใหม่ = ย่อหน้าใหม่)","a"]],b:()=>({id:Math.random().toString(36).slice(2,8),t:"หน้าใหม่",imgs:[],vids:[],body:""})},
  chips:{n:"ทักษะ",f:[["t","ชื่อ"],["s","คำอธิบาย"],["link","ลิงก์ (ถ้ามี)"]],b:()=>({t:"ใหม่",s:"",link:""})},
  links:{n:"ลิงก์ (หน้าข้อมูล)",f:[["t","ข้อความปุ่ม"],["u","URL (https://…)"]],b:()=>({t:"ลิงก์ใหม่",u:"https://"})},
- media:{n:"สื่อ",f:[["file","ภาพ","i"],["type","ประเภท","s"]],b:()=>({file:"",type:"photo"})},
+ contacts:{n:"ช่องทางติดต่อ",f:[["img","ไอคอน (ไม่บังคับ · ถ้าไม่ใส่จะใช้อีโมจิ)","i"],["e","อีโมจิ"],["n","ชื่อช่องทาง"],["v","ข้อความที่แสดง (เช่น ชื่อบัญชี / อีเมล)"],["link","ลิงก์ (https://… หรือ mailto:…)"]],b:()=>({e:"📨",n:"ช่องทางใหม่",v:"",link:"",img:""})},
+ loader:{n:"หน้าโหลด"},
  texts:{n:"ข้อความทั้งหมด"},settings:{n:"ตั้งค่า"}};
 let boTab="hobbies";
 const mimg=(a,k)=>`<div class="mg">${a.map((u,j)=>`<span class="mt"><img src="${esc(u)}" alt=""><button data-rm="${k}:${j}" title="ลบ">✕</button>${j?`<button data-cv="${k}:${j}" title="ตั้งเป็นภาพปก">★</button>`:""}</span>`).join("")}</div><div class="imgf"><button class="btn ghost" data-am="${k}">+ เพิ่มรูป (เลือกได้หลายไฟล์)</button><button class="btn ghost" data-au="${k}">+ วางลิงก์รูป</button></div>`;
+const imgField=(src,attr,clr)=>`<div class="imgf">${safeUrl(src)?`<img src="${esc(safeUrl(src))}" alt="">`:""}<button class="btn ghost" ${attr}>เลือกภาพ</button>${clr&&safeUrl(src)?`<button class="btn ghost" ${clr}>ลบรูป</button>`:""}</div>`;
+const field=(it,k,t)=>t==="a"?`<textarea rows="3" data-f="${k}">${esc(it[k])}</textarea>`
+ :t==="L"?`<textarea rows="3" data-f="${k}" data-lines="1" placeholder="https://www.youtube.com/watch?v=…">${esc((it[k]||[]).join("\n"))}</textarea>`
+ :t==="m"?mimg(it[k]||[],k)
+ :t==="i"?imgField(it[k],`data-up="${k}"`,`data-clr="${k}"`)
+ :`<input data-f="${k}" value="${esc(it[k])}">`;
 const texts=()=>Object.keys(DEF).map(k=>{const v=T(k);return `<label>${esc(TXL[k]||k)}</label>`+(v.length>45?`<textarea rows="2" data-x="${k}">${esc(v)}</textarea>`:`<input data-x="${k}" value="${esc(v)}">`)}).join("")+'<p class="lead" style="margin-top:16px">ใส่ลิงก์ในข้อความได้: [ข้อความ](https://…) หรือวาง URL ตรงๆ</p>';
-function boDraw(){const s=BO[boTab];$("#boTabs").innerHTML=Object.entries(BO).map(([k,v])=>`<button data-t="${k}" class="${k===boTab?"on":""}">${v.n}</button>`).join("");
- const img=(src,a)=>`<div class="imgf">${src?`<img src="${esc(src)}" alt="">`:""}<button class="btn ghost" ${a}>เลือกภาพ</button></div>`;
- $("#boBody").innerHTML=boTab==="texts"?texts():s.f?D[boTab].map((it,i)=>`<div class="bocard" data-i="${i}">${s.f.map(([k,l,t])=>`<label>${l}</label>`+(t==="a"?`<textarea rows="3" data-f="${k}">${esc(it[k])}</textarea>`:t==="m"?mimg(it[k]||[],k):t==="i"?img(it[k],`data-up="${k}"`):t==="s"?`<select data-f="${k}">${["photo","poster","logo"].map(o=>`<option ${it[k]===o?"selected":""}>${o}</option>`).join("")}</select>`:`<input data-f="${k}" value="${esc(it[k])}">`)).join("")}<div class="bobtns"><button data-mv="-1">↑</button><button data-mv="1">↓</button><button data-del>ลบ</button></div></div>`).join("")+`<button class="btn" id="boAdd">+ เพิ่ม${s.n}</button>`
- :`<label>ชื่อเว็บ</label><input data-s="title" value="${esc(D.title)}"><label>สีธีม</label><input type="color" data-s="accent" value="${esc(D.accent)}"><label class="chk"><input type="checkbox" data-s="fx" ${D.fx?"checked":""}> เปิดเอฟเฟกต์ (หิ่งห้อย ประกาย เคอร์เซอร์)</label><label>ภาพหน้าแรก</label>${img(D.heroImg,'data-su="heroImg"')}<label>ภาพหน้า “ข้อมูล”</label>${img(D.aboutImg,'data-su="aboutImg"')}<label>โลโก้ (พื้นมืด: หน้าเข้าสู่ระบบ/ไอคอนแท็บ)</label>${img(D.logoDark,'data-su="logoDark"')}<label>โลโก้ (พื้นสว่าง: หน้าแรก)</label>${img(D.logoLight,'data-su="logoLight"')}<p class="lead" style="margin-top:20px">ข้อความทุกจุดในเว็บ: กดปุ่ม “แก้ไขเว็บไซต์” มุมซ้ายล่าง แล้วคลิกข้อความที่ต้องการ</p>`}
+const loaderForm=()=>`<label class="chk"><input type="checkbox" data-l="on" ${LD.on?"checked":""}> เปิดใช้หน้าโหลด</label>`
+ +`<label>ชื่อที่แสดงตอนโหลด (เว้นว่าง = ใช้ชื่อเว็บ)</label><input data-l="name" value="${esc(LD.name)}">`
+ +`<label>ระยะเวลาโหลด (วินาที · 1–15)</label><input type="number" min="1" max="15" step="0.5" data-l="dur" value="${esc(LD.dur)}">`
+ +`<label class="chk"><input type="checkbox" data-l="pct" ${LD.pct?"checked":""}> แสดงเปอร์เซ็นต์</label>`
+ +`<label>ข้อความที่เปลี่ยนระหว่างโหลด (บรรทัดละ 1 ข้อความ)</label><textarea rows="5" data-l="msgs" data-lines="1">${esc(LD.msgs.join("\n"))}</textarea>`
+ +`<label>โลโก้หน้าโหลด (ว่าง = โลโก้เริ่มต้น)</label>${imgField(LD.logo,'data-lu="logo"','data-lclr="logo"')}`
+ +`<label>ภาพพื้นหลัง (ไม่บังคับ)</label>${imgField(LD.bg,'data-lu="bg"','data-lclr="bg"')}`
+ +`<label>สีพื้นหลัง</label><input type="color" data-l="bgc" value="${esc(LD.bgc)}">`
+ +`<div class="bobtns" style="margin-top:16px"><button class="btn" id="ldPrev">▶ ดูตัวอย่างหน้าโหลด</button></div><p class="lead" style="margin-top:14px">ค่าในแท็บนี้มีผลกับผู้เยี่ยมชมทุกคน แม้ยังไม่ได้เข้าสู่ระบบ (ต้องกด “บันทึกทั้งหมด”)</p>`;
+const settingsForm=()=>`<label>ชื่อเว็บ</label><input data-s="title" value="${esc(D.title)}"><label>สีธีม</label><input type="color" data-s="accent" value="${esc(D.accent)}"><label class="chk"><input type="checkbox" data-s="fx" ${D.fx?"checked":""}> เปิดเอฟเฟกต์ (หิ่งห้อย ประกาย เคอร์เซอร์)</label>`
+ +`<label>ภาพหน้าแรก</label>${imgField(D.heroImg,'data-su="heroImg"')}<label>ภาพหน้า “ข้อมูล”</label>${imgField(D.aboutImg,'data-su="aboutImg"')}`
+ +`<label>โลโก้ (พื้นมืด: หน้าเข้าสู่ระบบ/ไอคอนแท็บ)</label>${imgField(D.logoDark,'data-su="logoDark"')}<label>โลโก้ (พื้นสว่าง: หน้าแรก)</label>${imgField(D.logoLight,'data-su="logoLight"')}`
+ +`<p class="lead" style="margin-top:20px">ข้อความทุกจุดในเว็บ: กดปุ่ม “แก้ไขเว็บไซต์” มุมซ้ายล่าง แล้วคลิกข้อความที่ต้องการ</p>`;
+function boDraw(){const s=BO[boTab];
+ $("#boTabs").innerHTML=Object.entries(BO).map(([k,v])=>`<button data-t="${k}" class="${k===boTab?"on":""}">${v.n}</button>`).join("");
+ let h;
+ if(boTab==="texts")h=texts();
+ else if(boTab==="loader")h=loaderForm();
+ else if(boTab==="settings")h=settingsForm();
+ else h=(D[boTab]||[]).map((it,i)=>`<div class="bocard" data-i="${i}">${s.f.map(([k,l,t])=>`<label>${l}</label>`+field(it,k,t)).join("")}<div class="bobtns"><button data-mv="-1">↑</button><button data-mv="1">↓</button><button data-del>ลบ</button></div></div>`).join("")+`<button class="btn" id="boAdd">+ เพิ่ม${s.n}</button>`;
+ $("#boBody").innerHTML=h}
 $("#boBtn").onclick=()=>{boDraw();$("#bo").classList.remove("hidden")};$("#boX").onclick=()=>$("#bo").classList.add("hidden");
 $("#boTabs").onclick=e=>{const t=e.target.dataset.t;if(t){boTab=t;boDraw()}};
-$("#boBody").addEventListener("input",e=>{const t=e.target;if(t.dataset.x){content[t.dataset.x]=t.value;paint();applyD();return}if(t.dataset.s){D[t.dataset.s]=t.type==="checkbox"?t.checked:t.value}else{const c=t.closest(".bocard");if(!c||!t.dataset.f)return;D[boTab][+c.dataset.i][t.dataset.f]=t.value}applyD()});
-$("#boBody").addEventListener("click",e=>{const t=e.target,c=t.closest(".bocard"),i=c?+c.dataset.i:0,A=D[boTab];
- if(t.id==="boAdd"){if(boTab==="media")pickImg(u=>{A.push({file:u,type:"photo"});boDraw();applyD()},1200,0,1);else{A.push(BO[boTab].b());boDraw();applyD()}}
- else if(t.dataset.am)pickImg(u=>{(A[i][t.dataset.am]||(A[i][t.dataset.am]=[])).push(u);boDraw();applyD()},1200,0,1)
- else if(t.dataset.au){const u=safeLink(prompt("วางลิงก์รูปภาพ (https://…)"));if(u){(A[i][t.dataset.au]||(A[i][t.dataset.au]=[])).push(u);boDraw();applyD()}}
- else if(t.dataset.rm){const[k,j]=t.dataset.rm.split(":");A[i][k].splice(+j,1);boDraw();applyD()}
- else if(t.dataset.cv){const[k,j]=t.dataset.cv.split(":"),a=A[i][k];a.unshift(a.splice(+j,1)[0]);boDraw();applyD()}
- else if(t.dataset.up)pickImg(u=>{A[i][t.dataset.up]=u;boDraw();applyD()});
- else if(t.dataset.su)pickImg(u=>{D[t.dataset.su]=u;boDraw();applyD()});
- else if(t.hasAttribute("data-del")){if(confirm("ลบรายการนี้?")){A.splice(i,1);boDraw();applyD()}}
- else if(t.dataset.mv){const j=i+ +t.dataset.mv;if(j>=0&&j<A.length){[A[i],A[j]]=[A[j],A[i]];boDraw();applyD()}}});
-$("#boSave").onclick=async()=>{try{const d=JSON.stringify(D);await api.save({...content,data:d});content.data=d;toast("บันทึกแล้ว")}catch(x){toast("บันทึกไม่สำเร็จ: "+x.message)}};
+const splitLines=v=>v.split("\n").map(s=>s.trim()).filter(Boolean);
+$("#boBody").addEventListener("input",e=>{const t=e.target,ds=t.dataset;
+ if(ds.x){content[ds.x]=t.value;paint();applyD();return}
+ if(ds.l){LD[ds.l]=ds.lines?splitLines(t.value):t.type==="checkbox"?t.checked:t.type==="number"?+t.value:t.value;return}
+ if(ds.s){D[ds.s]=t.type==="checkbox"?t.checked:t.value;applyD();return}
+ const c=t.closest(".bocard");if(!c||!ds.f)return;const it=D[boTab][+c.dataset.i];
+ it[ds.f]=ds.lines?splitLines(t.value):t.value;applyD()});
+$("#boBody").addEventListener("click",e=>{const t=e.target,ds=t.dataset,c=t.closest(".bocard"),i=c?+c.dataset.i:0,A=D[boTab]||[];
+ if(t.id==="boAdd"){A.push(BO[boTab].b());boDraw();applyD();return}
+ if(t.id==="ldPrev"){$("#bo").classList.add("hidden");showLoader(true).then(()=>$("#bo").classList.remove("hidden"));return}
+ if(ds.am){pickImg(u=>{(A[i][ds.am]||(A[i][ds.am]=[])).push(u);boDraw();applyD()},1200,0,1);return}
+ if(ds.au){const u=safeLink(prompt("วางลิงก์รูปภาพ (https://…)"));if(u){(A[i][ds.au]||(A[i][ds.au]=[])).push(u);boDraw();applyD()}return}
+ if(ds.rm){const[k,j]=ds.rm.split(":");A[i][k].splice(+j,1);boDraw();applyD();return}
+ if(ds.cv){const[k,j]=ds.cv.split(":"),a=A[i][k];a.unshift(a.splice(+j,1)[0]);boDraw();applyD();return}
+ if(ds.up){pickImg(u=>{A[i][ds.up]=u;boDraw();applyD()},256,true);return}
+ if(ds.clr){A[i][ds.clr]="";boDraw();applyD();return}
+ if(ds.su){pickImg(u=>{D[ds.su]=u;boDraw();applyD()});return}
+ if(ds.lu){pickImg(u=>{LD[ds.lu]=u;boDraw()},1200);return}
+ if(ds.lclr){LD[ds.lclr]="";boDraw();return}
+ if(t.hasAttribute("data-del")){if(confirm("ลบรายการนี้?")){A.splice(i,1);boDraw();applyD()}return}
+ if(ds.mv){const j=i+ +ds.mv;if(j>=0&&j<A.length){[A[i],A[j]]=[A[j],A[i]];boDraw();applyD()}}});
+$("#boSave").onclick=async()=>{try{const d=JSON.stringify(D),l=JSON.stringify(LD);await api.save({...content,data:d,loader:l});content.data=d;content.loader=l;toast("บันทึกแล้ว")}catch(x){toast("บันทึกไม่สำเร็จ: "+x.message)}};
 
 /* boot */
 (async()=>{
  smoke($("#authSmoke"));smoke($("#heroSmoke"));
  if(!REMOTE)$("#demo").classList.remove("hidden");
- const [u]=await Promise.all([api.session().catch(()=>null),runLoader(),warm()]);
+ api.loaderCfg().then(c=>{if(c)LD=normLD(c);applyLoader()}).catch(()=>{});
+ const [u]=await Promise.all([api.session().catch(()=>null),showLoader(false),warm()]);
  if(u)enter(u);else $("#auth").classList.remove("hidden");
 })();
 </script>
