@@ -304,18 +304,6 @@ img.broken{min-height:140px;background:repeating-linear-gradient(45deg,rgba(140,
     </section>
   </div>
 
-  <!-- MEDIA -->
-  <div class="page" id="p-media">
-    <section class="sec" style="position:relative">
-      <div class="wrap">
-        <h2 class="t" data-k="media_t"></h2>
-        <p class="lead" data-k="media_d"></p>
-        <div class="tabs2" id="mtabs"><button class="on" data-f="all">ทั้งหมด</button><button data-f="photo">ภาพถ่าย</button><button data-f="poster">โปสเตอร์</button><button data-f="logo">โลโก้</button></div>
-        <div class="grid" id="grid"></div>
-      </div>
-    </section>
-  </div>
-
   <!-- HOBBY -->
   <div class="page" id="p-hobby">
     <section class="sec" style="position:relative">
@@ -485,17 +473,6 @@ $("#logout").onclick=async()=>{await api.signOut();location.hash="";location.rel
 function typeHero(){const el=$("#heroTh"),s=el.textContent;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
  el.textContent="";el.classList.add("typing");let i=0;const id=setInterval(()=>{el.textContent=s.slice(0,++i);if(i>=s.length){clearInterval(id);el.classList.remove("typing")}},55)}
 
-/* media */
-let curFilter="all",MAN=null;
-function openLB(L,j=0){$("#lb")?.remove();const l=document.createElement("div");l.id="lb";const d=()=>l.innerHTML=`<img src="${esc(L[j])}" alt="">${L.length>1?`<button class="lbn p" data-d="-1" aria-label="ก่อนหน้า">‹</button><button class="lbn n" data-d="1" aria-label="ถัดไป">›</button><span class="lbc">${j+1} / ${L.length}</span>`:""}`;d();
- l.onclick=e=>{const k=e.target.dataset.d;if(k){e.stopPropagation();j=(j+ +k+L.length)%L.length;d()}else l.remove()};document.body.append(l)}
-document.addEventListener("click",e=>{const g=e.target.closest("[data-lb]");if(!g)return;const[k,i,j]=g.dataset.lb.split(":"),o=(k==="w"?D.works:D.pages)[+i];if(o)openLB((o.imgs||[]).map(safeUrl).filter(Boolean),+j)});
-const FALL=["bg-smoke.png:poster","logo-dark.png:logo","logo-light.png:logo","photo-1.jpg:photo","photo-2.jpg:photo","photo-3.jpg:photo","photo-4.jpg:photo","photo-5.jpg:photo","photo-6.jpg:photo","photo-7.jpg:photo","photo-8.jpg:photo","poster-journey.png:poster","poster-truth.png:poster"].map(s=>{const[f,t]=s.split(":");return{file:"assets/"+f,type:t}});
-async function buildGrid(f){curFilter=f;if(!MAN){try{MAN=await (await fetch("assets/manifest.json")).json()}catch{MAN=FALL}}
- const g=$("#grid");g.innerHTML="";const LL=MAN.concat(D.media||[]).filter(m=>f==="all"||m.type===f);LL.forEach((m,i)=>{const fig=document.createElement("figure");fig.className="in";fig.style.animationDelay=i*60+"ms";
-  fig.innerHTML=`<img decoding="async" src="${m.file}" alt="สื่อ LuminaEther ชิ้นที่ ${i+1}">`;fig.onclick=()=>openLB(LL.map(x=>x.file),i);g.append(fig)})}
-$$("#mtabs button").forEach(b=>b.onclick=()=>{$$("#mtabs button").forEach(x=>x.classList.toggle("on",x===b));buildGrid(b.dataset.f)});
-
 /* gimmicks: แสงตามเมาส์ + เอียงการ์ด */
 addEventListener("pointermove",e=>{const g=$("#glow");g.style.transform=`translate(${e.clientX}px,${e.clientY}px)`;
  $$(".tilt").forEach(t=>{const r=t.getBoundingClientRect();if(e.clientY<r.top-200||e.clientY>r.bottom+200)return;const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;t.style.transform=`perspective(900px) rotateY(${x*10}deg) rotateX(${-y*10}deg)`})});
@@ -602,7 +579,6 @@ const BO={
  pages:{n:"หน้าใหม่",f:[["t","ชื่อหน้า (ขึ้นในเมนู)"],["imgs","รูปภาพ (ไม่จำกัดจำนวน)","m"],["body","เนื้อหา (ขึ้นบรรทัดใหม่ = ย่อหน้าใหม่)","a"]],b:()=>({id:Math.random().toString(36).slice(2,8),t:"หน้าใหม่",imgs:[],body:""})},
  chips:{n:"ทักษะ",f:[["t","ชื่อ"],["s","คำอธิบาย"],["link","ลิงก์ (ถ้ามี)"]],b:()=>({t:"ใหม่",s:"",link:""})},
  links:{n:"ลิงก์ (หน้าข้อมูล)",f:[["t","ข้อความปุ่ม"],["u","URL (https://…)"]],b:()=>({t:"ลิงก์ใหม่",u:"https://"})},
- media:{n:"สื่อ",f:[["file","ภาพ","i"],["type","ประเภท","s"]],b:()=>({file:"",type:"photo"})},
  texts:{n:"ข้อความทั้งหมด"},settings:{n:"ตั้งค่า"}};
 let boTab="hobbies";
 const mimg=(a,k)=>`<div class="mg">${a.map((u,j)=>`<span class="mt"><img src="${esc(u)}" alt=""><button data-rm="${k}:${j}" title="ลบ">✕</button>${j?`<button data-cv="${k}:${j}" title="ตั้งเป็นภาพปก">★</button>`:""}</span>`).join("")}</div><div class="imgf"><button class="btn ghost" data-am="${k}">+ เพิ่มรูป (เลือกได้หลายไฟล์)</button><button class="btn ghost" data-au="${k}">+ วางลิงก์รูป</button></div>`;
